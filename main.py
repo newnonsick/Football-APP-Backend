@@ -438,4 +438,4 @@ if __name__ == '__main__':
     for thread in threads:
         thread.start()
 
-    socketio.run(app, host='0.0.0.0', port=2734, allow_unsafe_werkzeug=True)
+    socketio.run(app, host='0.0.0.0', port=os.getenv('PORT'), allow_unsafe_werkzeug=True)
