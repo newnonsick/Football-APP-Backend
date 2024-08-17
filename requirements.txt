@@ -1,0 +1,9 @@
+flask[async]
+Flask-SocketIO
+eventlet
+Flask-CORS
+requests
+firebase-admin
+pytz
+Werkzeug
+python-dotenv
