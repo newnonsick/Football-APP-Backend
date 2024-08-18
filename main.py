@@ -35,7 +35,7 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 app = flask.Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
 utc_tz = pytz.timezone('UTC')
