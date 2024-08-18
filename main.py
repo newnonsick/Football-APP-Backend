@@ -202,7 +202,7 @@ def update_data():
                 with data_lock:
                     update_matches(response_data)
 
-            time.sleep(10)
+            time.sleep(15)
         except Exception as e:
             print(f"Error in update_data thread: {e}")
 
@@ -229,14 +229,14 @@ def update_matches(response_data):
 
 def update_match_lists(new_live_matches, new_upcoming_matches):
     if new_live_matches != data['live_matches']:
-        data['live_matches'] = new_live_matches
+        data['live_matches'] = copy.deepcopy(new_live_matches)
         for match in data['live_matches']:
             check_match_update(copy.deepcopy(match))
         socketio.emit('update_live_matches', data['live_matches'])
         print("Live matches updated")
 
     if new_upcoming_matches != data['upcoming_matches']:
-        data['upcoming_matches'] = new_upcoming_matches
+        data['upcoming_matches'] = copy.deepcopy(new_upcoming_matches)
         for match in data['upcoming_matches']:
             check_match_update(copy.deepcopy(match))
         socketio.emit('update_upcoming_matches', data['upcoming_matches'])
@@ -249,7 +249,7 @@ def handle_empty_upcoming_matches(response_data):
     else:
         new_upcoming_matches = response_data['matches'][:10]
     
-    data['upcoming_matches'] = new_upcoming_matches
+    data['upcoming_matches'] = copy.deepcopy(new_upcoming_matches)
     for match in data['upcoming_matches']:
         check_match_update(copy.deepcopy(match))
     socketio.emit('update_upcoming_matches', data['upcoming_matches'])
